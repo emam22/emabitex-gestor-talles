@@ -49,39 +49,41 @@ select:focus-visible {
 .app-header {
   border-bottom: 1px solid var(--border);
   background: var(--surface);
-  padding: 20px 0;
+  padding: 32px 0;
 }
 
 .header-inner {
   display: flex;
-  align-items: baseline;
-  gap: 16px;
-  flex-wrap: wrap;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  text-align: center;
 }
 
 .brand {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 14px;
 }
 
 .brand-logo {
-  width: 32px;
-  height: 32px;
-  border-radius: 6px;
+  width: 44px;
+  height: 44px;
+  border-radius: 8px;
   object-fit: cover;
   /* Si todavía no soltaste logoEM.png en /img, se ve un ícono roto: es esperado */
 }
 
 .brand-name {
   font-weight: 700;
-  font-size: 1.15rem;
+  font-size: 1.9rem;
   letter-spacing: -0.01em;
 }
 
 .brand-tagline {
   color: var(--text-muted);
-  font-size: 0.85rem;
+  font-size: 0.95rem;
   margin: 0;
 }
 
