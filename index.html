@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Emabitex — gestor de talles</title>
+  <meta name="description" content="Gestor de listas de nombres y talles, agrupados por color, con exportación a MySQL.">
+
+  <!-- Logo como favicon, imagen 1:1 -->
+  <link rel="icon" type="image/jpg" href="img/logoEM.jpg">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <header class="app-header">
+    <div class="container header-inner">
+      <div class="brand">
+        <img src="img/logoEM.jpg" alt="Logo Emabitex" class="brand-logo">
+        <span class="brand-name">emabitex</span>
+      </div>
+      <p class="brand-tagline">gestor de talles por grupo</p>
+    </div>
+  </header>
+
+  <main class="container app-layout">
+
+    <!-- Columna izquierda: listado -->
+    <section class="list-panel" aria-label="Listado de personas cargadas">
+      <div class="panel-header">
+        <div class="panel-header-title">
+          <h2>Lista</h2>
+          <span class="panel-count" id="entryCount">0</span>
+          <span class="active-sort-indicator" id="activeSortIndicator"></span>
+        </div>
+      </div>
+
+      <div class="list-toolbar" role="toolbar" aria-label="Ordenar y limpiar lista">
+        <button class="btn-sort" id="sortSizeBtn" title="Ordenar por talle" aria-pressed="false">
+          <i class="fa-solid fa-shirt" aria-hidden="true"></i>
+          Talle
+          <i class="fa-solid fa-arrow-up sort-arrow" id="sortSizeArrow" aria-hidden="true"></i>
+        </button>
+
+        <button class="btn-sort" id="sortNameBtn" title="Ordenar alfabéticamente" aria-pressed="false">
+          <i class="fa-solid fa-arrow-down-a-z" aria-hidden="true"></i>
+          Nombre
+          <i class="fa-solid fa-arrow-up sort-arrow" id="sortNameArrow" aria-hidden="true"></i>
+        </button>
+
+        <button class="btn-clear" id="clearListBtn" title="Vaciar toda la lista">
+          <i class="fa-solid fa-trash-can" aria-hidden="true"></i>
+          Vaciar lista
+        </button>
+      </div>
+
+      <ul class="entry-list" id="entryList">
+        <li class="empty-row">Todavía no cargaste a nadie.</li>
+      </ul>
+    </section>
+
+    <!-- Columna derecha: inputs + estadísticas -->
+    <section class="form-panel">
+
+      <div class="panel-header">
+        <h2>Agregar</h2>
+      </div>
+
+      <form class="entry-form" id="entryForm">
+        <div class="form-row">
+          <label for="nameInput">Nombre</label>
+          <input type="text" id="nameInput" name="name" required autocomplete="off">
+        </div>
+
+        <div class="form-row">
+          <label for="sizeInput">Talle</label>
+          <select id="sizeInput" name="size" required>
+            <option value="" disabled selected>Elegí un talle</option>
+            <option value="XS">XS</option>
+            <option value="S">S</option>
+            <option value="M">M</option>
+            <option value="L">L</option>
+            <option value="XL">XL</option>
+            <option value="2XL">2XL</option>
+            <option value="3XL">3XL</option>
+          </select>
+        </div>
+
+        <fieldset class="form-row color-picker-row">
+          <legend>Color de grupo</legend>
+          <div class="color-radio-group" id="colorRadioGroup">
+            <input type="radio" name="groupColor" id="color-1" class="color-radio" value="#565F6B" required>
+            <label for="color-1" class="color-circle" style="background:#565F6B" title="Gris pizarra"></label>
+
+            <input type="radio" name="groupColor" id="color-2" class="color-radio" value="#ADACA5" required>
+            <label for="color-2" class="color-circle" style="background:#ADACA5" title="Gris claro"></label>
+
+            <input type="radio" name="groupColor" id="color-3" class="color-radio" value="#6F93B5" required>
+            <label for="color-3" class="color-circle" style="background:#6F93B5" title="Azul acero"></label>
+
+            <input type="radio" name="groupColor" id="color-4" class="color-radio" value="#C0263B" required>
+            <label for="color-4" class="color-circle" style="background:#C0263B" title="Rojo"></label>
+
+            <input type="radio" name="groupColor" id="color-5" class="color-radio" value="#F1EFE8" required>
+            <label for="color-5" class="color-circle" style="background:#F1EFE8" title="Blanco hueso"></label>
+
+            <input type="radio" name="groupColor" id="color-6" class="color-radio" value="#1C1C1E" required>
+            <label for="color-6" class="color-circle" style="background:#1C1C1E" title="Negro"></label>
+
+            <input type="radio" name="groupColor" id="color-7" class="color-radio" value="#2A4FC4" required>
+            <label for="color-7" class="color-circle" style="background:#2A4FC4" title="Azul eléctrico"></label>
+
+            <input type="radio" name="groupColor" id="color-8" class="color-radio" value="#1B2740" required>
+            <label for="color-8" class="color-circle" style="background:#1B2740" title="Navy"></label>
+
+            <input type="radio" name="groupColor" id="color-9" class="color-radio" value="#33473C" required>
+            <label for="color-9" class="color-circle" style="background:#33473C" title="Verde bosque"></label>
+
+            <input type="radio" name="groupColor" id="color-10" class="color-radio" value="#C9AB7C" required>
+            <label for="color-10" class="color-circle" style="background:#C9AB7C" title="Beige arena"></label>
+          </div>
+          <p class="color-picker-hint">Si el color ya está en uso, se suma a ese grupo. Si es nuevo, se crea un grupo (Grupo 2, Grupo 3…) que después podés renombrar haciendo click en su etiqueta, en Estadísticas.</p>
+        </fieldset>
+
+        <button type="submit" class="btn-primary btn-block">
+          <i class="fa-solid fa-plus" aria-hidden="true"></i> Agregar a la lista
+        </button>
+      </form>
+
+      <!-- Estadísticas -->
+      <div class="stats-panel" aria-label="Estadísticas por grupo">
+        <div class="panel-header">
+          <h2>Estadísticas</h2>
+        </div>
+        <div class="stats-list" id="statsList">
+          <p class="empty-row">Sin datos todavía.</p>
+        </div>
+      </div>
+
+      <!-- Exportación -->
+      <button class="btn-export" id="exportBtn">
+        <i class="fa-solid fa-download" aria-hidden="true"></i> Exportar para MySQL (.sql)
+      </button>
+
+    </section>
+
+  </main>
+
+  <footer class="app-footer">
+    <div class="container">
+      <p>emabitex · creado por Emanuel Mendez 🇦🇷</p>
+    </div>
+  </footer>
+
+  <script src="js/palette.js"></script>
+  <script src="js/storage.js"></script>
+  <script src="js/export.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
